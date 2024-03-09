@@ -1,6 +1,6 @@
 
 
-
+# puts adj into a graph for use
 
 def create_map(file_path):
     adjacenties = {}
@@ -16,7 +16,6 @@ def create_map(file_path):
     return adjacenties
 
 graph = create_map("files/Adjacencies.txt")
-print(graph)
 
 
 
