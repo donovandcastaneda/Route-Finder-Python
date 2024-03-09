@@ -12,9 +12,7 @@ def load_towns(file_path):
     return towns
 
 
-# Assuming your file is located at 'files/coordinates.csv'
 cities_coordinates = load_towns("files/coordinates.csv")
-print(cities_coordinates)
 
 
 
