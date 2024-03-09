@@ -3,11 +3,11 @@ def load_towns(file_path):
     towns = {}
     with open(file_path, mode='r', encoding='utf-8-sig') as csv_file:
         csv_reader = csv.reader(csv_file)
-        next(csv_reader)  # Skip the header row
+        next(csv_reader) 
         for row in csv_reader:
-            town = row[0]  # Assuming town is the first column
-            latitude = float(row[1])  # Assuming latitude is the second column
-            longitude = float(row[2])  # Assuming longitude is the third column
+            town = row[0] 
+            latitude = float(row[1])  
+            longitude = float(row[2]) 
             towns[town] = (latitude, longitude)
     return towns
 
