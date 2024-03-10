@@ -1,4 +1,4 @@
-
+import time  
 from queue import PriorityQueue
 import sys
 sys.path.append('/Users/donovancastaneda/Documents/School Documents/Homework/route-finder/data')
@@ -9,6 +9,7 @@ from eucildean_distance import euclidean_distance
 
 
 def best_first_search(start, goal, graph, cities_coordinates):
+    start_time = time.time()
     open_set = PriorityQueue()
     open_set.put((0, start))
     came_from = {}
@@ -18,7 +19,11 @@ def best_first_search(start, goal, graph, cities_coordinates):
         _, current = open_set.get()
 
         if current == goal:
+            end_time = time.time()  
             path = reconstruct_path(came_from, current)
+            execution_time = end_time - start_time
+            print(f"Path reconstructed: {' -> '.join(path)}")
+            print(f"Goal reached in {execution_time:.4f} seconds") 
             return path
 
         for neighbor in graph[current]:
@@ -48,10 +53,7 @@ def reconstruct_path(came_from, current):
 start_city = "Anthony"
 goal_city = "Hillsboro"
 path = best_first_search(start_city, goal_city, graph, cities_coordinates)
-if path:
-    print("Final Path:", ' -> '.join(path))
-else:
-    print(f"Failed to find a path from {start_city} to {goal_city}")
+
 
 
 

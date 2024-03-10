@@ -1,5 +1,4 @@
-import csv
-import math
+import time
 from queue import PriorityQueue
 import sys
 sys.path.append('/Users/donovancastaneda/Documents/School Documents/Homework/route-finder/data')
@@ -14,6 +13,7 @@ from collections import deque
 
 
 def a_star_search(start, goal, graph, cities_coordinates):
+    start_time = time.time()  # Capture the start time
     open_set = PriorityQueue()
     open_set.put((0, start))
     came_from = {}
@@ -26,7 +26,12 @@ def a_star_search(start, goal, graph, cities_coordinates):
         _, current = open_set.get()
 
         if current == goal:
-            return reconstruct_path(came_from, current)
+            end_time = time.time()  # Capture the end time when the goal is found
+            path = reconstruct_path(came_from, current)
+            execution_time = end_time - start_time  # Calculate the execution time
+            print(f"Path found in {execution_time:.4f} seconds")  # Print the execution time
+            return path
+
 
         for neighbor in graph[current]:
             # Calculate tentative_g_score as the current g_score plus the distance between current and the neighbor
@@ -52,4 +57,7 @@ def reconstruct_path(came_from, current):
 start = "Anthony"  
 goal = "Hillsboro"
 path = a_star_search(start, goal, graph, cities_coordinates)
-print("Path found:", path)
+if path:
+    print("Path found:", ' -> '.join(path))
+else:
+    print("No path found.")
