@@ -1,11 +1,11 @@
 import time
 from queue import PriorityQueue
+
 import sys
 sys.path.append('/Users/donovancastaneda/Documents/School Documents/Homework/route-finder/data')
-from graph import graph
-from coordinates import cities_coordinates
+
+
 from eucildean_distance import euclidean_distance
-from collections import deque
 
 
 
@@ -53,11 +53,3 @@ def reconstruct_path(came_from, current):
     total_path.reverse()
     return total_path
 
-# Example usage
-start = "Anthony"  
-goal = "Hillsboro"
-path = a_star_search(start, goal, graph, cities_coordinates)
-if path:
-    print("Path found:", ' -> '.join(path))
-else:
-    print("No path found.")

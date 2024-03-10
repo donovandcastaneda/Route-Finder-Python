@@ -1,7 +1,6 @@
 import sys
 import time
 sys.path.append('/Users/donovancastaneda/Documents/School Documents/Homework/route-finder/data')
-from graph import graph
 from collections import deque
 
 
@@ -28,12 +27,3 @@ def bfs(graph, start, goal):
 
     return None
 
-start_town = 'Anthony'
-end_town = 'Wichita'
-start_time = time.time()
-path = bfs(graph, start_town, end_town)
-end_time = time.time()
-if path:
-    print("Path found from", start_town, "to", end_town, ":", " -> ".join(path))
-else:
-    print(f"No path could be found from {start_town} to {end_town}.")

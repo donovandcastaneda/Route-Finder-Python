@@ -2,8 +2,7 @@ import time
 from queue import PriorityQueue
 import sys
 sys.path.append('/Users/donovancastaneda/Documents/School Documents/Homework/route-finder/data')
-from graph import graph
-from coordinates import cities_coordinates
+
 from eucildean_distance import euclidean_distance
 
 
@@ -50,9 +49,7 @@ def reconstruct_path(came_from, current):
     return path
 
 
-start_city = "Anthony"
-goal_city = "Hillsboro"
-path = best_first_search(start_city, goal_city, graph, cities_coordinates)
+
 
 
 
