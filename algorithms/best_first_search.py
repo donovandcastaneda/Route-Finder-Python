@@ -6,47 +6,50 @@ sys.path.append('/Users/donovancastaneda/Documents/School Documents/Homework/rou
 from eucildean_distance import euclidean_distance
 
 
-
 def best_first_search(start, goal, graph, cities_coordinates):
-    start_time = time.time()
     open_set = PriorityQueue()
     open_set.put((0, start))
-    came_from = {}
-
+    came_from = {start: None}  # Initialize with start as its own predecessor to signify the start
 
     while not open_set.empty():
         _, current = open_set.get()
 
         if current == goal:
-            end_time = time.time()  
-            path = reconstruct_path(came_from, current)
-            execution_time = end_time - start_time
-            print(f"Path reconstructed: {' -> '.join(path)}")
-            print(f"Goal reached in {execution_time:.4f} seconds") 
-            return path
+            path, total_distance = reconstruct_path(came_from, current, cities_coordinates)
+            return path, total_distance
 
         for neighbor in graph[current]:
-            if neighbor not in came_from:
+            if neighbor not in came_from:  # Check if not visited
                 priority = euclidean_distance(cities_coordinates[neighbor], cities_coordinates[goal])
                 open_set.put((priority, neighbor))
                 came_from[neighbor] = current
 
-    print("No path found")
-    return None
+    return None, 0  # Return 0 distance if no path is found
 
-def reconstruct_path(came_from, current):
-    path = [current]
-    visited = set([current])  # Keep track of visited nodes to detect cycles
 
-    while current in came_from:
-        current = came_from[current]
-        if current in visited:
-            break  # Break the loop to prevent infinite cycling
-        visited.add(current)
+def reconstruct_path(came_from, current, cities_coordinates):
+    path = []
+    total_distance = 0
+
+    while current is not None:  # Stop when reaching the start of the path
         path.append(current)
+        next_node = came_from.get(current)  # Use .get to safely handle None
 
-    path.reverse()
-    return path
+        if next_node is None or current == next_node:  # Check if at the start or a cycle
+            break
+
+        # Calculate distance only if there's a valid next node
+        if next_node in cities_coordinates and current in cities_coordinates:
+            distance = euclidean_distance(cities_coordinates[current], cities_coordinates[next_node])
+            total_distance += distance
+
+        current = next_node
+
+    path.reverse()  # The path is constructed in reverse order
+    return path, total_distance
+
+
+
 
 
 

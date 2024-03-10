@@ -76,31 +76,33 @@ def main():
         
         if selected_method == "Breadth First Search":
             start_time = time.time()
-            path = bfs(graph, start_town, end_town)
+            path, distance = bfs(graph, start_town, end_town, cities_coordinates)
             end_time = time.time()
         elif selected_method == "Depth First Search":
             start_time = time.time()
-            path = dfs(graph, start_town, end_town)
+            path, distance = dfs(graph, start_town, end_town, cities_coordinates)
             end_time = time.time()
 
         elif selected_method == "Iterative Deepening - Depth First Search":
             max_depth = 10 
             start_time = time.time()
-            path = iddfs(graph, start_town, end_town, max_depth)
+            path, distance = iddfs(graph, start_town, end_town, max_depth, cities_coordinates)  # Adjusted to unpack properly
             end_time = time.time()
 
         elif selected_method == "A* Search":
             start_time = time.time()
-            path = a_star_search(start_town, end_town, graph, cities_coordinates)
+            path, distance = a_star_search(start_town, end_town, graph, cities_coordinates)
             end_time = time.time()
 
         elif selected_method == "Best First Search":
             start_time = time.time()
-            path = best_first_search(start_town, end_town, graph, cities_coordinates)
+            path, distance = best_first_search(start_town, end_town, graph, cities_coordinates)
             end_time = time.time()
 
         if path:
             print("Path found from", start_town, "to", end_town, ":", " -> ".join(path))
+            print(f"Total distance: {distance:.2f} units") 
+
         else:
             print(f"No path could be found from {start_town} to {end_town}.")
         print(f"{selected_method} completed in {end_time - start_time:.4f} seconds.")
