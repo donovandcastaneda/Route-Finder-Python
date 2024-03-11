@@ -57,7 +57,7 @@ def select_route_finding_method():
             
 
 def main():
-    while True:  # Start of the loop
+    while True:
 
         all_towns = set(graph.keys()) | {town for neighbors in graph.values() for town in neighbors}
         towns_list = sorted(all_towns)
